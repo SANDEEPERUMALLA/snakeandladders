@@ -11,7 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SnakeAndLadderSimulationTest {
 
-    @Test void runSimulation1() {
+    @Test
+    void runSimulation1() {
         //Snake Positions
         List<Position> snakePositions = List.of(Position.of(45, 5), Position.of(31, 10), Position.of(89, 3),
                 Position.of(82, 34), Position.of(63, 61));

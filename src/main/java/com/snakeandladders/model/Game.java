@@ -2,10 +2,7 @@ package com.snakeandladders.model;
 
 import com.snakeandladders.services.Dice;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.snakeandladders.logging.Logger.log;
 
@@ -33,7 +30,6 @@ public class Game {
         }
         gameStats = new GameStats(players);
         diceHistory = new ArrayList<>();
-
     }
 
     public void play() {
@@ -45,43 +41,46 @@ public class Game {
                 String playerName = player.getShortName();
                 int diceNumber = dice.rollDice();
                 diceHistory.add(diceNumber);
-                log("Player: " + playerName + ", dice: " + diceNumber);
-                Integer playerCurrentPosition = playerPositions.get(playerName);
-                int playerNewPosition = playerCurrentPosition + diceNumber;
-                if (playerNewPosition > 100) {
-                    continue;
-                }
-                playerPaths.put(playerName, playerPaths.get(playerName) + "," + playerNewPosition);
-                board.getBoardPosition(playerCurrentPosition).removePlayer(playerName);
-                BoardPosition newBoardPosition = board.getBoardPosition(playerNewPosition);
-
-                if (newBoardPosition.hasLadder() || newBoardPosition.hasSnake()) {
-                    if (newBoardPosition.hasLadder()) {
-                        playerNewPosition = newBoardPosition.getLadder().getEndPosition();
-                    }
-                    if (newBoardPosition.hasSnake()) {
-                        playerNewPosition = newBoardPosition.getSnake().getEndPosition();
-                    }
-                    if (playerNewPosition > 100) {
-                        continue;
-                    }
-                    playerPaths.put(playerName, playerPaths.get(playerName) + "," + playerNewPosition);
-                    newBoardPosition = board.getBoardPosition(playerNewPosition);
-                    newBoardPosition.addPlayer(playerName);
-                } else {
-                    newBoardPosition = board.getBoardPosition(playerNewPosition);
-                    newBoardPosition.addPlayer(playerName);
-                }
-
-                if (playerNewPosition == 100) {
-                    this.gameStats.setWinningPlayer(player);
-                    this.gameStats.setPlayerPaths(playerPaths);
-                    this.gameStats.setDiceHistory(diceHistory);
+                //                log("Player: " + playerName + ", dice: " + diceNumber);
+                //                Integer playerCurrentPosition = playerPositions.get(playerName);
+                //                int playerNewPosition = playerCurrentPosition + diceNumber;
+                //                if (playerNewPosition > 100) {
+                //                    continue;
+                //                }
+                //                playerPaths.put(playerName, playerPaths.get(playerName) + "," + playerNewPosition);
+                //                board.getBoardPosition(playerCurrentPosition).removePlayer(playerName);
+                //                BoardPosition newBoardPosition = board.getBoardPosition(playerNewPosition);
+                //
+                //                while (newBoardPosition.hasLadder() || newBoardPosition.hasSnake()) {
+                //                    if (newBoardPosition.hasLadder() || newBoardPosition.hasSnake()) {
+                //                        if (newBoardPosition.hasLadder()) {
+                //                            playerNewPosition = newBoardPosition.getLadder().getEndPosition();
+                //                        }
+                //                        if (newBoardPosition.hasSnake()) {
+                //                            playerNewPosition = newBoardPosition.getSnake().getEndPosition();
+                //                        }
+                //                        playerPaths.put(playerName, playerPaths.get(playerName) + "," + playerNewPosition);
+                //                        newBoardPosition = board.getBoardPosition(playerNewPosition);
+                //                    }
+                //                }
+                //
+                //                newBoardPosition.addPlayer(playerName);
+                int playerNewPosition = movePlayer(player, diceNumber);
+                if (hasGameCompleted(playerNewPosition, player)) {
                     gameCompleted = true;
                     break;
                 }
-
                 playerPositions.put(playerName, playerNewPosition);
+                while (diceNumber == 6) {
+                    playerNewPosition = movePlayer(player, diceNumber);
+                    if (hasGameCompleted(playerNewPosition, player)) {
+                        gameCompleted = true;
+                        break;
+                    }
+                    playerPositions.put(playerName, playerNewPosition);
+                    diceNumber = dice.rollDice();
+                    diceHistory.add(diceNumber);
+                }
                 this.board.print();
             }
 
@@ -90,6 +89,47 @@ public class Game {
             }
 
         }
+    }
+
+    private boolean hasGameCompleted(int playerNewPosition, Player player) {
+        if (playerNewPosition == 100) {
+            playerPositions.put(player.getShortName(), playerNewPosition);
+            this.gameStats.setWinningPlayer(player);
+            this.gameStats.setPlayerPaths(playerPaths);
+            this.gameStats.setDiceHistory(diceHistory);
+            this.board.print();
+            return true;
+        }
+        return false;
+    }
+
+    private int movePlayer(Player player, int diceNumber) {
+        String playerName = player.getShortName();
+        log("Player: " + playerName + ", dice: " + diceNumber);
+        Integer playerCurrentPosition = playerPositions.get(playerName);
+        int playerNewPosition = playerCurrentPosition + diceNumber;
+        if (playerNewPosition > 100) {
+            return playerCurrentPosition;
+        }
+        playerPaths.put(playerName, playerPaths.get(playerName) + "," + playerNewPosition);
+        board.getBoardPosition(playerCurrentPosition).removePlayer(playerName);
+        BoardPosition newBoardPosition = board.getBoardPosition(playerNewPosition);
+
+        while (newBoardPosition.hasLadder() || newBoardPosition.hasSnake()) {
+            if (newBoardPosition.hasLadder() || newBoardPosition.hasSnake()) {
+                if (newBoardPosition.hasLadder()) {
+                    playerNewPosition = newBoardPosition.getLadder().getEndPosition();
+                }
+                if (newBoardPosition.hasSnake()) {
+                    playerNewPosition = newBoardPosition.getSnake().getEndPosition();
+                }
+                playerPaths.put(playerName, playerPaths.get(playerName) + "," + playerNewPosition);
+                newBoardPosition = board.getBoardPosition(playerNewPosition);
+            }
+        }
+
+        newBoardPosition.addPlayer(playerName);
+        return playerNewPosition;
     }
 
     public GameStats getStats() {
