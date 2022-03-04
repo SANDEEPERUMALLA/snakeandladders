@@ -54,6 +54,7 @@ public class BoardPosition {
         StringBuilder boardPosition = new StringBuilder();
         boardPosition.append("[");
         boardPosition.append("(").append(position).append(")");
+
         if (players != null && !players.isEmpty()) {
             boardPosition.append("(");
             for (String player : players) {
@@ -61,16 +62,15 @@ public class BoardPosition {
             }
             boardPosition.append(")");
         }
+
         if (snake != null) {
             boardPosition.append("(").append(snake).append(")");
         }
-
         if (ladder != null) {
             boardPosition.append("(").append(ladder).append(")");
         }
 
         boardPosition.append("]");
-
         return boardPosition.toString();
     }
 }

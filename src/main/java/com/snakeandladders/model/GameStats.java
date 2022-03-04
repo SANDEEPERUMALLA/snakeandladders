@@ -5,9 +5,18 @@ import java.util.Map;
 
 public class GameStats {
 
-    private List<Player> players;
+    private final List<Player> players;
     private Player winnerPlayer;
     private Map<String, String> playerPaths;
+    private List<Integer> diceHistory;
+
+    public List<Integer> getDiceHistory() {
+        return diceHistory;
+    }
+
+    public void setDiceHistory(List<Integer> diceHistory) {
+        this.diceHistory = diceHistory;
+    }
 
     public GameStats(List<Player> players) {
         this.players = players;
@@ -31,5 +40,9 @@ public class GameStats {
 
     public Player getWinnerPlayer() {
         return winnerPlayer;
+    }
+
+    public void printAllStats() {
+
     }
 }

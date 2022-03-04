@@ -1,6 +1,7 @@
-package com.snakeandladders.model;
+package com.snakeandladders;
 
 import com.snakeandladders.config.BoardConfig;
+import com.snakeandladders.model.Position;
 
 import java.util.List;
 

@@ -1,5 +1,8 @@
 package com.snakeandladders.model;
 
+import com.snakeandladders.services.Dice;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,10 +16,13 @@ public class Game {
     private final Map<String, Integer> playerPositions;
     private final Map<String, String> playerPaths;
     private final GameStats gameStats;
+    private final Dice dice;
+    private final List<Integer> diceHistory;
 
-    public Game(Board board, List<Player> players) {
+    public Game(Board board, List<Player> players, Dice dice) {
         this.board = board;
         this.players = players;
+        this.dice = dice;
         playerPositions = new HashMap<>();
         for (Player player : players) {
             playerPositions.put(player.getShortName(), 1);
@@ -26,6 +32,7 @@ public class Game {
             playerPaths.put(player.getShortName(), "");
         }
         gameStats = new GameStats(players);
+        diceHistory = new ArrayList<>();
 
     }
 
@@ -36,7 +43,8 @@ public class Game {
 
             for (Player player : players) {
                 String playerName = player.getShortName();
-                int diceNumber = Dice.rollDice();
+                int diceNumber = dice.rollDice();
+                diceHistory.add(diceNumber);
                 log("Player: " + playerName + ", dice: " + diceNumber);
                 Integer playerCurrentPosition = playerPositions.get(playerName);
                 int playerNewPosition = playerCurrentPosition + diceNumber;
@@ -66,8 +74,9 @@ public class Game {
                 }
 
                 if (playerNewPosition == 100) {
-                    gameStats.setPlayerPaths(playerPaths);
                     this.gameStats.setWinningPlayer(player);
+                    this.gameStats.setPlayerPaths(playerPaths);
+                    this.gameStats.setDiceHistory(diceHistory);
                     gameCompleted = true;
                     break;
                 }

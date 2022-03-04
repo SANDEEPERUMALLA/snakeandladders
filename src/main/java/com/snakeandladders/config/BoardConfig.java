@@ -22,4 +22,8 @@ public class BoardConfig {
     public List<Position> getLadderPositions() {
         return ladderPositions;
     }
+
+    @Override public String toString() {
+        return "[snakePositions" + snakePositions.toString() + ", ladderPositions:" + ladderPositions.toString() + "]";
+    }
 }

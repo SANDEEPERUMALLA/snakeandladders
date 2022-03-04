@@ -20,4 +20,8 @@ public class Position {
     public static Position of(int startPosition, int endPosition) {
         return new Position(startPosition, endPosition);
     }
+
+    public String toString() {
+        return "(" + startPosition + "->" + endPosition + ")";
+    }
 }

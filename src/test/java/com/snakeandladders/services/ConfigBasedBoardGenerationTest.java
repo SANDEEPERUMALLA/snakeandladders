@@ -1,11 +1,9 @@
 package com.snakeandladders.services;
 
 import com.snakeandladders.config.BoardConfig;
-import com.snakeandladders.model.BaseTest;
+import com.snakeandladders.BaseTest;
 import com.snakeandladders.model.Board;
 import com.snakeandladders.model.Position;
-import com.snakeandladders.services.ConfigBasedBoardGenerator;
-import com.snakeandladders.services.IBoardGenerator;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
