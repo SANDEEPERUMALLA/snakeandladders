@@ -8,6 +8,9 @@ public class Board {
     BoardPosition[] boardPositions;
 
     public Board(BoardPosition[] boardPositions) {
+        if (boardPositions.length != 100) {
+            throw new AssertionError();
+        }
         this.boardPositions = boardPositions;
     }
 
@@ -17,7 +20,6 @@ public class Board {
 
     public void print() {
         StringBuilder currentBoardState = new StringBuilder();
-
         for (int i = 9; i >= 0; i--) {
             StringJoiner boardLine = new StringJoiner(" ");
             for (int j = 0; j < 10; j++) {

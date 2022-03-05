@@ -50,7 +50,6 @@ public class BoardPosition {
     }
 
     @Override public String toString() {
-
         StringBuilder boardPosition = new StringBuilder();
         boardPosition.append("[");
         boardPosition.append("(").append(position).append(")");
@@ -66,6 +65,7 @@ public class BoardPosition {
         if (snake != null) {
             boardPosition.append("(").append(snake).append(")");
         }
+
         if (ladder != null) {
             boardPosition.append("(").append(ladder).append(")");
         }
