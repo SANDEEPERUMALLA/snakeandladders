@@ -14,8 +14,6 @@ public class FakeDice implements Dice {
 
     @Override
     public int rollDice() {
-        Integer diceNumber = diceSequence.get(current);
-        current++;
-        return diceNumber;
+        return diceSequence.get(current++);
     }
 }

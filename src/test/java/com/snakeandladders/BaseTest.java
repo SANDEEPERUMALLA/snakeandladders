@@ -5,7 +5,7 @@ import com.snakeandladders.model.Position;
 
 import java.util.List;
 
-public class BaseTest {
+public abstract class BaseTest {
 
     protected BoardConfig setupBoardWithStaticConfig() {
         //Ladder Positions

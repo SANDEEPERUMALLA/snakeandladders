@@ -11,7 +11,8 @@ public class ConfigBasedBoardGenerator extends AbstractBoardGenerator {
         this.boardConfig = boardConfig;
     }
 
-    protected void initLadders(BoardPosition[] boardPositions) {
+    @Override
+    void initLadders(BoardPosition[] boardPositions) {
         for (Position position : boardConfig.getLadderPositions()) {
             int startPosition = position.getStartPosition();
             int endPosition = position.getEndPosition();
@@ -21,7 +22,8 @@ public class ConfigBasedBoardGenerator extends AbstractBoardGenerator {
         }
     }
 
-    protected void initSnakes(BoardPosition[] boardPositions) {
+    @Override
+    void initSnakes(BoardPosition[] boardPositions) {
         for (Position position : boardConfig.getSnakePositions()) {
             int startPosition = position.getStartPosition();
             int endPosition = position.getEndPosition();

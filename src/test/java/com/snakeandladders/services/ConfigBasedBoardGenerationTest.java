@@ -11,7 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ConfigBasedBoardGenerationTest extends BaseTest {
 
-    @Test void testBoardCreationWithConfigBasedGenerator() {
+    @Test
+    void testBoardCreationWithConfigBasedGenerator() {
         BoardConfig boardConfig = setupBoardWithStaticConfig();
         IBoardGenerator configBasedBoardGenerator = new ConfigBasedBoardGenerator(boardConfig);
         assertNotNull(configBasedBoardGenerator);

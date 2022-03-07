@@ -21,7 +21,7 @@ public class RandomBoardConfigGenerator implements IBoardConfigGenerator {
         ThreadLocalRandom random = ThreadLocalRandom.current();
         Set<Integer> ladderPositions = new HashSet<>();
         while (createdLadderCount < requiredLadderCount) {
-            int startPosition = random.nextInt(1, 100);
+            int startPosition = random.nextInt(1, 99);
             int endPosition = random.nextInt(startPosition + 1, 100);
 
             if (ladderPositions.contains(startPosition) || ladderPositions.contains(
@@ -43,8 +43,8 @@ public class RandomBoardConfigGenerator implements IBoardConfigGenerator {
         ThreadLocalRandom random = ThreadLocalRandom.current();
         Set<Integer> snakePositions = new HashSet<>();
         while (createdSnakeCount < requiredSnakeCount) {
-            int startPosition = random.nextInt(1, 100);
-            int endPosition = random.nextInt(0, startPosition - 1);
+            int startPosition = random.nextInt(1, 99);
+            int endPosition = random.nextInt(1, startPosition - 1);
 
             if (snakePositions.contains(startPosition) || snakePositions.contains(
                     endPosition) || startPosition == endPosition) {
