@@ -1,7 +1,7 @@
 package com.snakeandladders.model;
 
+import java.util.Collection;
 import java.util.IntSummaryStatistics;
-import java.util.List;
 
 public class AggregatedStats {
 
@@ -18,11 +18,11 @@ public class AggregatedStats {
     private double averageUnluckyRolls;
     private int longestTurn;
 
-    public AggregatedStats(List<GameStats> gameStatsList) {
+    public AggregatedStats(Collection<GameStats> gameStatsList) {
         aggregate(gameStatsList);
     }
 
-    public void aggregate(List<GameStats> gameStatsList) {
+    public void aggregate(Collection<GameStats> gameStatsList) {
         IntSummaryStatistics statistics = gameStatsList.stream().mapToInt(GameStats::getRollsToWin).summaryStatistics();
 
         // Rolls to win

@@ -15,6 +15,7 @@ public class GameStats {
     private int luckyRolls;
     private int unluckyRolls;
     private int longestTurn;
+    private final long gameId;
 
     public List<Integer> getDiceHistory() {
         return diceHistory;
@@ -24,8 +25,9 @@ public class GameStats {
         this.diceHistory = diceHistory;
     }
 
-    public GameStats(List<Player> players) {
+    public GameStats(List<Player> players, long gameId) {
         this.players = players;
+        this.gameId = gameId;
     }
 
     public List<Player> getPlayers() {
@@ -96,7 +98,12 @@ public class GameStats {
         this.longestTurn = longestTurn;
     }
 
-    @Override public String toString() {
-        return "GameStats{" + "players=" + players + ", winnerPlayer=" + winnerPlayer + ", playerPaths=" + playerPaths + ", diceHistory=" + diceHistory + ", rollsToWin=" + rollsToWin + ", biggestClimb=" + biggestClimb + ", biggestSlide=" + biggestSlide + ", luckyRolls=" + luckyRolls + ", unluckyRolls=" + unluckyRolls + ", longestTurn=" + longestTurn + '}';
+    public long getGameId() {
+        return gameId;
+    }
+
+    @Override
+    public String toString() {
+        return "GameStats{" + "players=" + players + ", winnerPlayer=" + winnerPlayer + ", playerPaths=" + playerPaths + ", diceHistory=" + diceHistory + ", rollsToWin=" + rollsToWin + ", biggestClimb=" + biggestClimb + ", biggestSlide=" + biggestSlide + ", luckyRolls=" + luckyRolls + ", unluckyRolls=" + unluckyRolls + ", longestTurn=" + longestTurn + ", gameId=" + gameId + '}';
     }
 }

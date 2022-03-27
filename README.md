@@ -36,10 +36,10 @@ Sample Board for reference:
 
 - Made the board generation config based, a board would be generated randomly based on input config and multiple games can be played on the board.
 
-- No of players, no of snakes, no of ladders, no of games in a simulation are configuration
+- No of players, no of snakes, no of ladders, no of games in a simulation are configurable,
 
 - Captured all the required stats at game level (game stats) and aggregating them across all the games in the simulation.
 
-- Using the random dice in actual simulation and fake dice (a test double) to generate a predefined dice sequence in case of test 
+- Using the random dice in actual simulation and fake dice (a test double) to generate a predefined dice sequence in case of tests.
 
 

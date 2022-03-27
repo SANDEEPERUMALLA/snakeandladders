@@ -49,7 +49,8 @@ public class BoardPosition {
         return players.remove(player);
     }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         StringBuilder boardPosition = new StringBuilder();
         boardPosition.append("[");
         boardPosition.append("(").append(position).append(")");

@@ -1,5 +1,6 @@
 package com.snakeandladders.model;
 
+import com.snakeandladders.metrics.IMetricsPublisher;
 import com.snakeandladders.services.Dice;
 
 import java.util.*;
@@ -15,17 +16,21 @@ public class Game {
     private final GameStats gameStats;
     private final Dice dice;
     private final List<Integer> diceHistory;
+    private final IMetricsPublisher metricsPublisher;
     private int rollsToWin;
     private int unluckyRolls;
     private int luckyRolls;
     private int biggestJump;
     private int biggestSlide;
     private int longestTurn;
+    private long gameId;
 
-    public Game(Board board, List<Player> players, Dice dice) {
+    public Game(Board board, List<Player> players, Dice dice, IMetricsPublisher metricsPublisher) {
+        this.gameId = System.currentTimeMillis();
         this.board = board;
         this.players = players;
         this.dice = dice;
+        this.metricsPublisher = metricsPublisher;
         playerPositions = new HashMap<>();
         for (Player player : players) {
             playerPositions.put(player.getShortName(), 1);
@@ -34,7 +39,7 @@ public class Game {
         for (Player player : players) {
             playerPaths.put(player.getShortName(), "");
         }
-        gameStats = new GameStats(players);
+        gameStats = new GameStats(players, this.gameId);
         diceHistory = new ArrayList<>();
     }
 
@@ -53,7 +58,7 @@ public class Game {
                     if (playerPositions.get(playerName) == 94) {
                         luckyRolls++;
                     }
-                    updateEndGameStats(playerNewPosition, player);
+                    publishGameStats(playerNewPosition, player);
                     return;
                 }
                 playerPositions.put(playerName, playerNewPosition);
@@ -63,7 +68,7 @@ public class Game {
                     diceHistory.add(diceNumber);
                     playerNewPosition = movePlayer(player, diceNumber);
                     if (isGameCompleted(playerNewPosition)) {
-                        updateEndGameStats(playerNewPosition, player);
+                        publishGameStats(playerNewPosition, player);
                         return;
                     }
                     playerPositions.put(playerName, playerNewPosition);
@@ -84,7 +89,7 @@ public class Game {
         }
     }
 
-    private void updateEndGameStats(int playerNewPosition, Player player) {
+    private void publishGameStats(int playerNewPosition, Player player) {
         playerPositions.put(player.getShortName(), playerNewPosition);
         this.gameStats.setWinningPlayer(player);
         this.gameStats.setPlayerPaths(playerPaths);
@@ -96,6 +101,7 @@ public class Game {
         this.gameStats.setBiggestSlide(biggestSlide);
         this.gameStats.setLongestTurn(longestTurn);
         this.board.print();
+        metricsPublisher.publish(gameStats);
     }
 
     private boolean isGameCompleted(int playerPosition) {
@@ -150,8 +156,7 @@ public class Game {
         return isPlayerLucky;
     }
 
-    public GameStats getStats() {
-        return gameStats;
+    public long getGameId() {
+        return gameId;
     }
-
 }

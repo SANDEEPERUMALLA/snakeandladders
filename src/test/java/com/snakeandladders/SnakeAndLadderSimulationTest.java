@@ -1,6 +1,9 @@
 package com.snakeandladders;
 
 import com.snakeandladders.config.BoardConfig;
+import com.snakeandladders.metrics.IMetricsPublisher;
+import com.snakeandladders.metrics.MetricsProcessor;
+import com.snakeandladders.metrics.MetricsPublisher;
 import com.snakeandladders.model.*;
 import com.snakeandladders.services.ConfigBasedBoardGenerator;
 import com.snakeandladders.services.FakeDice;
@@ -28,15 +31,17 @@ class SnakeAndLadderSimulationTest {
         IBoardGenerator configBasedBoardGenerator = new ConfigBasedBoardGenerator(boardConfig);
         Board board = configBasedBoardGenerator.generate();
         board.print();
-
+        MetricsProcessor metricsProcessor = new MetricsProcessor();
+        IMetricsPublisher metricsPublisher = new MetricsPublisher();
+        metricsPublisher.register(metricsProcessor);
         List<Player> players = List.of(Player.builder().firstName("John").lastName("Cena").age(25).build(),
                 Player.builder().firstName("Rosy").lastName("Marry").age(30).build());
         Game game = new Game(board, players, new FakeDice(
                 List.of(5, 1, 5, 1, 5, 5, 1, 4, 4, 5, 1, 2, 5, 2, 2, 2, 1, 2, 5, 1, 4, 2, 4, 3, 2, 4, 1, 4, 2, 1, 3, 4,
-                        1, 1, 4, 5, 2, 3, 1, 5, 1, 2, 1, 5, 2, 4, 3, 5, 4, 1, 2, 4, 1)));
+                        1, 1, 4, 5, 2, 3, 1, 5, 1, 2, 1, 5, 2, 4, 3, 5, 4, 1, 2, 4, 1)), metricsPublisher);
         game.play();
-        GameStats stats = game.getStats();
-        assertEquals("JC", stats.getWinnerPlayer().getShortName());
+        Player winnerPlayer = metricsProcessor.getStatsByGameId(game.getGameId()).getWinnerPlayer();
+        assertEquals("JC", winnerPlayer.getShortName());
     }
 
     @Test
@@ -54,15 +59,17 @@ class SnakeAndLadderSimulationTest {
         IBoardGenerator configBasedBoardGenerator = new ConfigBasedBoardGenerator(boardConfig);
         Board board = configBasedBoardGenerator.generate();
         board.print();
-
+        MetricsProcessor metricsProcessor = new MetricsProcessor();
+        IMetricsPublisher metricsPublisher = new MetricsPublisher();
+        metricsPublisher.register(metricsProcessor);
         List<Player> players = List.of(Player.builder().firstName("John").lastName("Cena").age(25).build(),
                 Player.builder().firstName("Rosy").lastName("Marry").age(30).build());
         Game game = new Game(board, players, new FakeDice(
                 List.of(1, 5, 6, 3, 4, 2, 1, 1, 2, 4, 3, 4, 6, 3, 5, 3, 4, 6, 6, 6, 6, 1, 6, 3, 1, 2, 6, 4, 3, 2, 6, 2,
-                        2, 2, 3, 1, 2, 3, 5, 3, 2, 3, 4, 4, 4, 1, 2, 1, 3)));
+                        2, 2, 3, 1, 2, 3, 5, 3, 2, 3, 4, 4, 4, 1, 2, 1, 3)), metricsPublisher);
         game.play();
-        GameStats stats = game.getStats();
-        assertEquals("RM", stats.getWinnerPlayer().getShortName());
+        Player winnerPlayer = metricsProcessor.getStatsByGameId(game.getGameId()).getWinnerPlayer();
+        assertEquals("RM", winnerPlayer.getShortName());
     }
 
     @Test void runSimulationWithTwoPlayer3() {
@@ -79,15 +86,17 @@ class SnakeAndLadderSimulationTest {
         IBoardGenerator configBasedBoardGenerator = new ConfigBasedBoardGenerator(boardConfig);
         Board board = configBasedBoardGenerator.generate();
         board.print();
-
+        MetricsProcessor metricsProcessor = new MetricsProcessor();
+        IMetricsPublisher metricsPublisher = new MetricsPublisher();
+        metricsPublisher.register(metricsProcessor);
         List<Player> players = List.of(Player.builder().firstName("John").lastName("Cena").age(25).build(),
                 Player.builder().firstName("Rosy").lastName("Marry").age(30).build());
         Game game = new Game(board, players, new FakeDice(
                 List.of(2, 5, 1, 3, 3, 5, 2, 6, 6, 3, 5, 4, 3, 2, 4, 1, 3, 3, 6, 4, 5, 4, 1, 6, 4, 1, 6, 2, 4, 5, 2, 1,
-                        2, 2, 4, 5, 6, 6, 6, 1, 3, 1)));
+                        2, 2, 4, 5, 6, 6, 6, 1, 3, 1)), metricsPublisher);
         game.play();
-        GameStats stats = game.getStats();
-        assertEquals("RM", stats.getWinnerPlayer().getShortName());
+        Player winnerPlayer = metricsProcessor.getStatsByGameId(game.getGameId()).getWinnerPlayer();
+        assertEquals("RM", winnerPlayer.getShortName());
     }
 
     @Test
@@ -105,17 +114,19 @@ class SnakeAndLadderSimulationTest {
         IBoardGenerator configBasedBoardGenerator = new ConfigBasedBoardGenerator(boardConfig);
         Board board = configBasedBoardGenerator.generate();
         board.print();
-
+        MetricsProcessor metricsProcessor = new MetricsProcessor();
+        IMetricsPublisher metricsPublisher = new MetricsPublisher();
+        metricsPublisher.register(metricsProcessor);
         List<Player> players = List.of(Player.builder().firstName("John").lastName("Cena").age(25).build(),
                 Player.builder().firstName("Rosy").lastName("Marry").age(30).build(),
                 Player.builder().firstName("Raj").lastName("Khanna").age(30).build());
         Game game = new Game(board, players, new FakeDice(
                 List.of(3, 6, 1, 5, 2, 1, 3, 4, 6, 3, 4, 3, 5, 3, 6, 1, 3, 3, 1, 4, 5, 3, 2, 3, 6, 5, 5, 6, 2, 3, 2, 2,
                         4, 5, 2, 6, 5, 3, 1, 6, 2, 1, 5, 3, 6, 2, 5, 5, 5, 2, 4, 6, 5, 5, 4, 2, 3, 3, 6, 5, 2, 2, 4, 2,
-                        5, 5, 3, 5, 4, 1, 2, 3, 6, 3, 5, 2, 4, 1)));
+                        5, 5, 3, 5, 4, 1, 2, 3, 6, 3, 5, 2, 4, 1)), metricsPublisher);
         game.play();
-        GameStats stats = game.getStats();
-        assertEquals("JC", stats.getWinnerPlayer().getShortName());
+        Player winnerPlayer = metricsProcessor.getStatsByGameId(game.getGameId()).getWinnerPlayer();
+        assertEquals("JC", winnerPlayer.getShortName());
     }
 
 }
