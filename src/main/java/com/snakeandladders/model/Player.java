@@ -1,5 +1,7 @@
 package com.snakeandladders.model;
 
+import java.util.Objects;
+
 public class Player {
 
     private final String firstName;
@@ -62,6 +64,20 @@ public class Player {
         public Player build() {
             return new Player(firstName, lastName, age);
         }
+    }
+
+    @Override public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Player player = (Player)o;
+        return Objects.equals(firstName, player.firstName) && Objects.equals(lastName,
+                player.lastName) && Objects.equals(age, player.age);
+    }
+
+    @Override public int hashCode() {
+        return Objects.hash(firstName, lastName, age);
     }
 
     @Override

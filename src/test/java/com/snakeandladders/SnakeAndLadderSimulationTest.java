@@ -43,8 +43,6 @@ class SnakeAndLadderSimulationTest {
         game.play();
         Player winnerPlayer = metricsProcessor.getStatsByGameId(game.getGameId()).getWinnerPlayer();
         assertEquals("JC", winnerPlayer.getShortName());
-        AggregatedStats aggregatedStats = metricsProcessor.getAggregatedStats();
-        // aggregatedStats.getAverageLuckyRolls();
     }
 
     @Test

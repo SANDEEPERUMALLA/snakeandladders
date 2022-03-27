@@ -2,10 +2,11 @@ package com.snakeandladders.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class BoardPosition {
     private final Integer position;
-    private List<String> players;
+    private final List<String> players;
     private Snake snake;
     private Ladder ladder;
 
@@ -47,6 +48,22 @@ public class BoardPosition {
 
     public boolean removePlayer(String player) {
         return players.remove(player);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        BoardPosition that = (BoardPosition)o;
+        return Objects.equals(position, that.position) && Objects.equals(players, that.players) && Objects.equals(snake,
+                that.snake) && Objects.equals(ladder, that.ladder);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(position, players, snake, ladder);
     }
 
     @Override

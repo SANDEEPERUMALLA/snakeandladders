@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class LadderTest {
+class LadderTest {
 
     @Test
     void testCreateLadder() {
@@ -12,6 +12,13 @@ public class LadderTest {
         assertEquals(2, ladder.getStartPosition());
         assertEquals(40, ladder.getEndPosition());
         assertEquals("L:2->40", ladder.toString());
+    }
+
+    @Test
+    void testLadderEquals() {
+        Ladder ladder1 = new Ladder(2, 40);
+        Ladder ladder2 = new Ladder(2, 40);
+        assertEquals(ladder1, ladder2);
     }
 
 }

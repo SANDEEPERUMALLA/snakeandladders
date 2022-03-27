@@ -13,4 +13,11 @@ class SnakeTest {
         assertEquals(40, snake.getEndPosition());
         assertEquals("S:2->40", snake.toString());
     }
+
+    @Test
+    void testSnakeEquals() {
+        Snake snake1 = new Snake(2, 40);
+        Snake snake2 = new Snake(2, 40);
+        assertEquals(snake1, snake2);
+    }
 }

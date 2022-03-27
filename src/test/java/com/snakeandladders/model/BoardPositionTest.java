@@ -50,4 +50,18 @@ class BoardPositionTest {
     void testCreateBoardPositionWithNull(){
         assertThrows(AssertionError.class, () -> new BoardPosition(null));
     }
+
+    @Test
+    void testBoardPositionEquals(){
+        BoardPosition boardPosition1 = new BoardPosition(50);
+        boardPosition1.addPlayer("A");
+        boardPosition1.addPlayer("B");
+        boardPosition1.setSnake(new Snake(50, 10));
+
+        BoardPosition boardPosition2 = new BoardPosition(50);
+        boardPosition2.addPlayer("A");
+        boardPosition2.addPlayer("B");
+        boardPosition2.setSnake(new Snake(50, 10));
+        assertEquals(boardPosition1, boardPosition2);
+    }
 }

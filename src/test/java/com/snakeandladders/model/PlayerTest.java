@@ -2,12 +2,12 @@ package com.snakeandladders.model;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerTest {
 
-    @Test void testCreatePlayer() {
+    @Test
+    void testCreatePlayer() {
         Player player = new Player("John", "Paul", 25);
         assertEquals("John", player.getFirstName());
         assertEquals("Paul", player.getLastName());
@@ -17,15 +17,25 @@ class PlayerTest {
         assertEquals("John Paul", player.toString());
     }
 
-    @Test void testCreatePlayerWithNullFirstName() {
+    @Test
+    void testCreatePlayerWithNullFirstName() {
         assertThrows(AssertionError.class, () -> new Player(null, "Paul", 25));
     }
 
-    @Test void testCreatePlayerWithNullLastName() {
+    @Test
+    void testCreatePlayerWithNullLastName() {
         assertThrows(AssertionError.class, () -> new Player("John", null, 25));
     }
 
-    @Test void testCreatePlayerWithNullAge() {
+    @Test
+    void testCreatePlayerWithNullAge() {
         assertThrows(AssertionError.class, () -> new Player("John", "Paul", null));
+    }
+
+    @Test
+    void testPlayerEquals() {
+        Player player1 = new Player("John", "Paul", 25);
+        Player player2 = new Player("John", "Paul", 25);
+        assertEquals(player1, player2);
     }
 }

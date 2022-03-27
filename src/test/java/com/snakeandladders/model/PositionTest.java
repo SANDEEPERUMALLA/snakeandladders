@@ -18,4 +18,11 @@ class PositionTest {
         assertEquals(40, position.getEndPosition());
         assertEquals("(2->40)", position.toString());
     }
+
+    @Test
+    void testPositionEquals() {
+        Position position1 = new Position(1, 25);
+        Position position2 = new Position(1, 25);
+        assertEquals(position1, position2);
+    }
 }

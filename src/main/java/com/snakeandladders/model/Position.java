@@ -1,5 +1,7 @@
 package com.snakeandladders.model;
 
+import java.util.Objects;
+
 public class Position {
     private final int startPosition;
     private final int endPosition;
@@ -21,7 +23,24 @@ public class Position {
         return new Position(startPosition, endPosition);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Position position = (Position)o;
+        return startPosition == position.startPosition && endPosition == position.endPosition;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(startPosition, endPosition);
+    }
+
+    @Override
     public String toString() {
         return "(" + startPosition + "->" + endPosition + ")";
     }
+
 }
