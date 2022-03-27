@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class BoardTest {
 
@@ -39,6 +38,13 @@ class BoardTest {
         assertTrue(board.getBoardPosition(60).hasLadder());
         assertTrue(board.getBoardPosition(1).hasLadder());
         assertTrue(board.getBoardPosition(16).hasLadder());
+    }
 
+    @Test
+    void testCreateBoardWithInCorrectBoardPositions(){
+        assertThrows(AssertionError.class, () -> {
+            BoardPosition[] boardPositions = new BoardPosition[0];
+            new Board(boardPositions);
+        });
     }
 }

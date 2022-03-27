@@ -1,7 +1,10 @@
-package com.snakeandladders.model;
+package com.snakeandladders;
 
 import com.snakeandladders.metrics.GameStats;
 import com.snakeandladders.metrics.IMetricsPublisher;
+import com.snakeandladders.model.Board;
+import com.snakeandladders.model.BoardPosition;
+import com.snakeandladders.model.Player;
 import com.snakeandladders.services.Dice;
 
 import java.util.*;
@@ -24,7 +27,7 @@ public class Game {
     private int biggestJump;
     private int biggestSlide;
     private int longestTurn;
-    private long gameId;
+    private final long gameId;
 
     public Game(Board board, List<Player> players, Dice dice, IMetricsPublisher metricsPublisher) {
         this.gameId = System.currentTimeMillis();

@@ -1,6 +1,7 @@
 package com.snakeandladders;
 
 import com.snakeandladders.config.BoardConfig;
+import com.snakeandladders.metrics.AggregatedStats;
 import com.snakeandladders.metrics.IMetricsPublisher;
 import com.snakeandladders.metrics.MetricsProcessor;
 import com.snakeandladders.metrics.MetricsPublisher;
@@ -42,6 +43,8 @@ class SnakeAndLadderSimulationTest {
         game.play();
         Player winnerPlayer = metricsProcessor.getStatsByGameId(game.getGameId()).getWinnerPlayer();
         assertEquals("JC", winnerPlayer.getShortName());
+        AggregatedStats aggregatedStats = metricsProcessor.getAggregatedStats();
+        // aggregatedStats.getAverageLuckyRolls();
     }
 
     @Test

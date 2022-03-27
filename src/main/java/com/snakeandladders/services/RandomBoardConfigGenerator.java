@@ -11,7 +11,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomBoardConfigGenerator implements IBoardConfigGenerator {
 
-    @Override public BoardConfig generate(int numOfLadders, int noOfSnakes) {
+    @Override
+    public BoardConfig generate(int numOfLadders, int noOfSnakes) {
         return new BoardConfig(generateSnakePositions(noOfSnakes), generateLadderPositions(numOfLadders));
     }
 

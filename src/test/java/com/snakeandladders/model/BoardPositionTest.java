@@ -45,4 +45,9 @@ class BoardPositionTest {
         assertTrue(boardPosition.hasSnake());
         assertFalse(boardPosition.hasLadder());
     }
+
+    @Test
+    void testCreateBoardPositionWithNull(){
+        assertThrows(AssertionError.class, () -> new BoardPosition(null));
+    }
 }

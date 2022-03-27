@@ -14,6 +14,7 @@ class PlayerTest {
         assertEquals(25, player.getAge());
         assertEquals("JP", player.getShortName());
         assertEquals("John Paul", player.getName());
+        assertEquals("John Paul", player.toString());
     }
 
     @Test void testCreatePlayerWithNullFirstName() {
