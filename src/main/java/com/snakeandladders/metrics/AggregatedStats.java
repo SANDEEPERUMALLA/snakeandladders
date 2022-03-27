@@ -1,4 +1,4 @@
-package com.snakeandladders.model;
+package com.snakeandladders.metrics;
 
 import java.util.Collection;
 import java.util.IntSummaryStatistics;

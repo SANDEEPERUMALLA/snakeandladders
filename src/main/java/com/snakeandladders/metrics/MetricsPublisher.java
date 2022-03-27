@@ -1,7 +1,5 @@
 package com.snakeandladders.metrics;
 
-import com.snakeandladders.model.GameStats;
-
 import java.util.ArrayList;
 import java.util.List;
 

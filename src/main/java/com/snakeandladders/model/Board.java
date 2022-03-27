@@ -18,7 +18,7 @@ public class Board {
         return boardPositions[position - 1];
     }
 
-    public void print() {
+    private String getCurrentBoardState() {
         StringBuilder currentBoardState = new StringBuilder();
         for (int i = 9; i >= 0; i--) {
             StringJoiner boardLine = new StringJoiner(" ");
@@ -29,5 +29,15 @@ public class Board {
             currentBoardState.append("\n");
         }
         log(currentBoardState.toString());
+        return currentBoardState.toString();
+    }
+
+    public void print() {
+        log(getCurrentBoardState());
+    }
+
+    @Override
+    public String toString() {
+        return getCurrentBoardState();
     }
 }

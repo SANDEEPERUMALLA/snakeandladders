@@ -1,5 +1,6 @@
 package com.snakeandladders.model;
 
+import com.snakeandladders.metrics.GameStats;
 import com.snakeandladders.metrics.IMetricsPublisher;
 import com.snakeandladders.services.Dice;
 

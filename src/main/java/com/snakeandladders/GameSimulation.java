@@ -1,13 +1,13 @@
 package com.snakeandladders;
 
 import com.snakeandladders.config.BoardConfig;
+import com.snakeandladders.metrics.AggregatedStats;
 import com.snakeandladders.metrics.IMetricsPublisher;
 import com.snakeandladders.metrics.MetricsProcessor;
 import com.snakeandladders.metrics.MetricsPublisher;
 import com.snakeandladders.model.*;
 import com.snakeandladders.services.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.snakeandladders.logging.Logger.log;
@@ -19,7 +19,6 @@ public class GameSimulation {
     public GameSimulation(Integer noOfGames) {
         this.noOfGames = noOfGames;
     }
-
     public AggregatedStats runSimulation(List<Player> players) {
         IBoardConfigGenerator randomBoardConfigGenerator = new RandomBoardConfigGenerator();
         BoardConfig boardConfig = randomBoardConfigGenerator.generate(5, 5);
@@ -30,7 +29,6 @@ public class GameSimulation {
         MetricsProcessor metricsProcessor = new MetricsProcessor();
         IMetricsPublisher metricsPublisher = new MetricsPublisher();
         metricsPublisher.register(metricsProcessor);
-
         for (int i = 0; i < noOfGames; i++) {
             Game game = new Game(board, players, new RandomDice(), metricsPublisher);
             game.play();

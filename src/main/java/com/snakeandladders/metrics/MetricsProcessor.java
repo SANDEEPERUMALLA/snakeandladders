@@ -1,14 +1,11 @@
 package com.snakeandladders.metrics;
 
-import com.snakeandladders.model.AggregatedStats;
-import com.snakeandladders.model.GameStats;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class MetricsProcessor implements IMetricsSubscriber {
 
-    Map<Long, GameStats> gameIdToStats;
+    private final Map<Long, GameStats> gameIdToStats;
 
     public MetricsProcessor() {
         gameIdToStats = new HashMap<>();

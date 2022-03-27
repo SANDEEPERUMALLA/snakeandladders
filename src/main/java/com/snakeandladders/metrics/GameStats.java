@@ -1,4 +1,6 @@
-package com.snakeandladders.model;
+package com.snakeandladders.metrics;
+
+import com.snakeandladders.model.Player;
 
 import java.util.List;
 import java.util.Map;
