@@ -13,7 +13,7 @@ class MetricPublisherTest {
         IMetricsSubscriber metricsSubscriber2 = spy(new MockTestSubscriber());
         metricsPublisher.register(metricsSubscriber1);
         metricsPublisher.register(metricsSubscriber2);
-        GameStatsTest gameStats = mock(GameStatsTest.class);
+        GameStats gameStats = mock(GameStats.class);
         metricsPublisher.publish(gameStats);
         verify(metricsSubscriber1, times(1)).receive(gameStats);
         verify(metricsSubscriber2, times(1)).receive(gameStats);
@@ -21,7 +21,7 @@ class MetricPublisherTest {
 
     private static class MockTestSubscriber implements IMetricsSubscriber {
         @Override
-        public void receive(GameStatsTest gameStats) {
+        public void receive(GameStats gameStats) {
 
         }
     }

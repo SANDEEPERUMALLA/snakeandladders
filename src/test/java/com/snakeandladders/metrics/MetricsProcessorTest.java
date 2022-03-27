@@ -11,7 +11,7 @@ class MetricsProcessorTest {
     @Test
     void testMetricProcessor() {
         MetricsProcessor metricsProcessor = new MetricsProcessor();
-        GameStatsTest gameStats = mock(GameStatsTest.class);
+        GameStats gameStats = mock(GameStats.class);
         long gameId = 123456L;
         when(gameStats.getGameId()).thenReturn(gameId);
         metricsProcessor.receive(gameStats);
